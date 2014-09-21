@@ -15,7 +15,7 @@ function PostIrc(message) {
 		[
 			message.channel,
 			message.user,
-			message.text,
+			message.text.replace('([^a-zA-Z 0-9+-.,!@#$%^&*();\\\/|<>"\':?=])+', ''),
 			analyze(message.text).score,
 			positivity(message.text).score,
 			negativity(message.text).score
