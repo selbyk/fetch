@@ -12,7 +12,7 @@ function PostIrc(message) {
 "name" : "irc",\
 "columns" : ["channel", "user", "message", "sentiment", "positivity", "negativity"],\
 "points" : [\
-[' + message.channel + ', '
+[' + message.channel.substr(1) + ', '
    + message.user + ', '
    + '"' + message.text + '", '
    + analyze(message.text).score + ', '
