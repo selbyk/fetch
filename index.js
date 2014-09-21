@@ -48,7 +48,6 @@ function PostIrc(message) {
 }
 
 var client = new irc.Client('irc.freenode.net', 'olil3olli3', {
-	debug: true,
     channels: ['#bitcoin']
 });
 
