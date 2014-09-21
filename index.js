@@ -7,7 +7,6 @@ var fs = require('fs');
 
 function PostIrc(message) {
   // Build the post string from an object
-  var text = tweet.text.replace(/[^a-zA-Z ]/g, "");
   var influxPost = '[\
 {\
 "name" : "irc",\
