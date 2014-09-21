@@ -7,20 +7,23 @@ var fs = require('fs');
 
 function PostIrc(message) {
   // Build the post string from an object
-  var influxPost = '[\
-{\
-"name" : "irc",\
-"columns" : ["channel", "user", "message", "sentiment", "positivity", "negativity"],\
-"points" : [\
-[' + '"' + message.channel + '", '
-   + '"' + message.user + '", '
-   + '"' + message.text + '", '
-   + analyze(message.text).score + ', '
-   + positivity(message.text).score + ', '
-   + negativity(message.text).score + ']\
-]\
-}\
-]';
+  var influxPost = JSON.stringify([
+	{
+	"name" : "irc",
+	"columns" : ["channel", "user", "message", "sentiment", "positivity", "negativity"],
+	"points" : [
+		[
+			message.channel,
+			message.user,
+			message.text,
+			analyze(message.text).score,
+			positivity(message.text).score,
+			negativity(message.text).score
+		]
+	]
+	}
+  ]);
+
   // An object of options to indicate where to post to
   var post_options = {
       host: 'localhost',
