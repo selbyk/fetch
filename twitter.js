@@ -16,15 +16,12 @@ function PostTweet(name,columns,point) {
   // Build the post string from an object
   var job = JSON.stringify({
        "type": "irc",
-       "title": message.channel,
        "data": {
-          "title": message.channel,
           "name": name,
           "columns": columns,
           "point": point
         },
         "options" : {
-          "title": message.channel,
           "attempts": 5,
           "priority": "normal"
        }
