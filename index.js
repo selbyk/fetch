@@ -10,21 +10,13 @@ function PostIrc(message) {
   var job = JSON.stringify({
        "type": "irc",
        "data": [
-  {
-  "name" : "irc",
-  "columns" : ["channel", "user", "message", "sentiment", "positivity", "negativity"],
-  "points" : [
-    [
-      message.channel,
-      message.user,
-      message.text.replace('([^a-zA-Z 0-9+-.,!@#$%^&*();\\\/|<>"\':?=])+', ''),
-      analyze(message.text).score,
-      positivity(message.text).score,
-      negativity(message.text).score
-    ]
-  ]
-  }
-  ],
+          message.channel,
+          message.user,
+          message.text.replace('([^a-zA-Z 0-9+-.,!@#$%^&*();\\\/|<>"\':?=])+', ''),
+          analyze(message.text).score,
+          positivity(message.text).score,
+          negativity(message.text).score
+        ],
        "options" : {
          "attempts": 5,
          "priority": "high"
