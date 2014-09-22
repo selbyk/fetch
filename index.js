@@ -21,7 +21,7 @@ function PostIrc(message) {
             positivity(message.text).score,
             negativity(message.text).score
           ]
-        }
+        },
         "options" : {
           "attempts": 5,
           "priority": "normal"
