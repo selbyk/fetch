@@ -52,23 +52,27 @@ function PostTweet(name,columns,point) {
 
 twit.stream('user', {track:'Bitcoin'}, function(stream) {
   stream.on('data', function(data) {
-     console.log(util.inspect(data));
-    var text = data.text.replace(/[^a-zA-Z ]/g, "");
-    var name = "tweets";
-    var columns = ["time", "user_id", "user_name", "tweet_id", "text", "sentiment", "positivity", "negativity"]
-    var point = [
-      data.timestamp_ms,
-      data.user.id,
-      data.user.screen_name,
-      data.id,
-      text,
-      analyze(text).score,
-      positivity(text).score,
-      negativity(text).score
-    ];
-    PostTweet(name,columns,point);
-    console.log(name);
-    console.log(columns);
-    console.log(point);
+
+    if (typeof(data.text) !== 'undefined') {
+      var text = data.text.replace(/[^a-zA-Z ]/g, "");
+      var name = "tweets";
+      var columns = ["time", "user_id", "user_name", "tweet_id", "text", "sentiment", "positivity", "negativity"]
+      var point = [
+        data.timestamp_ms,
+        data.user.id,
+        data.user.screen_name,
+        data.id,
+        text,
+        analyze(text).score,
+        positivity(text).score,
+        negativity(text).score
+      ];
+      PostTweet(name,columns,point);
+      console.log(name);
+      console.log(columns);
+      console.log(point);
+    } else {
+      console.log(util.inspect(data));
+    }
   });
 });
