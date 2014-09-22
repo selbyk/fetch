@@ -9,6 +9,7 @@ function PostIrc(message) {
   // Build the post string from an object
   var job = JSON.stringify({
        "type": "irc",
+       "title": message.channel,
        "data": [
           message.time,
           message.channel,
@@ -20,7 +21,7 @@ function PostIrc(message) {
         ],
        "options" : {
          "attempts": 5,
-         "priority": "high"
+         "priority": "normal"
        }
      });
 
