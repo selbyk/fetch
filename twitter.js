@@ -57,7 +57,7 @@ twit.stream('user', {track:'Bitcoin'}, function(stream) {
       var name = "tweets";
       var columns = ["time", "user_id", "user_name", "tweet_id", "text", "sentiment", "positivity", "negativity"];
       var point = [
-        parseFloat(data.timestamp_ms),
+        data.timestamp_ms,
         data.user.id,
         data.user.screen_name,
         data.id,
