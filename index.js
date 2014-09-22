@@ -7,32 +7,39 @@ var fs = require('fs');
 
 function PostIrc(message) {
   // Build the post string from an object
-  var influxPost = JSON.stringify([
-	{
-	"name" : "irc",
-	"columns" : ["channel", "user", "message", "sentiment", "positivity", "negativity"],
-	"points" : [
-		[
-			message.channel,
-			message.user,
-			message.text.replace('([^a-zA-Z 0-9+-.,!@#$%^&*();\\\/|<>"\':?=])+', ''),
-			analyze(message.text).score,
-			positivity(message.text).score,
-			negativity(message.text).score
-		]
-	]
-	}
-  ]);
+  var job = JSON.stringify({
+       "type": "irc-message",
+       "data": [
+  {
+  "name" : "irc",
+  "columns" : ["channel", "user", "message", "sentiment", "positivity", "negativity"],
+  "points" : [
+    [
+      message.channel,
+      message.user,
+      message.text.replace('([^a-zA-Z 0-9+-.,!@#$%^&*();\\\/|<>"\':?=])+', ''),
+      analyze(message.text).score,
+      positivity(message.text).score,
+      negativity(message.text).score
+    ]
+  ]
+  }
+  ],
+       "options" : {
+         "attempts": 5,
+         "priority": "high"
+       }
+     });
 
   // An object of options to indicate where to post to
   var post_options = {
       host: 'localhost',
-      port: '8086',
-      path: "/db/bitcoin/series?u=root&p=root",
+      port: '5050',
+      path: "/job",
       method: 'POST',
       headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Content-Length': influxPost.length
+          'Content-Type': 'application/json',
+          'Content-Length': job.length
       }
   };
   // Set up the request
@@ -43,7 +50,7 @@ function PostIrc(message) {
       });
   });
   // post the data
-  post_req.write(influxPost);
+  post_req.write(job);
   post_req.end();
 }
 
@@ -83,6 +90,7 @@ var join = [
 
 client.addListener('message', function (from, to, message) {
 	var ircMessage = {
+    'time': Date.now(),
 		'channel': to,
 		'user': from,
 		'text': message
