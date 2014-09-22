@@ -12,7 +12,7 @@ var analyze = require('Sentimental').analyze,
 var http = require('http');
 var fs = require('fs');
 
-function PostIrc(name,columns,point) {
+function PostTweet(name,columns,point) {
   // Build the post string from an object
   var job = JSON.stringify({
        "type": "irc",
