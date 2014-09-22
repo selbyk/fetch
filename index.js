@@ -10,6 +10,7 @@ function PostIrc(message) {
   var job = JSON.stringify({
        "type": "irc",
        "data": [
+          message.time,
           message.channel,
           message.user,
           message.text.replace('([^a-zA-Z 0-9+-.,!@#$%^&*();\\\/|<>"\':?=])+', ''),
