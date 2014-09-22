@@ -50,7 +50,7 @@ function PostTweet(name,columns,point) {
   post_req.end();
 }
 
-twit.stream('statuses/filter', {track:'bitcoin,btc,bitcoin wallet,coinbase,Satoshi,51% Attack,btce,campbx,bitstamp'}, function(stream) {
+twit.stream('user', {track:'Bitcoin'}, function(stream) {
   stream.on('data', function(data) {
     var text = data.text.replace(/[^a-zA-Z ]/g, "");
     var name = "tweets";
