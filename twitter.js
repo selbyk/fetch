@@ -15,7 +15,7 @@ var fs = require('fs');
 function PostTweet(name,columns,point) {
   // Build the post string from an object
   var job = JSON.stringify({
-       "type": "irc",
+       "type": "tweet",
        "data": {
           "name": name,
           "columns": columns,
