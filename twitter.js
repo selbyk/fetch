@@ -69,6 +69,6 @@ twit.stream('user', {track:'Bitcoin'}, function(stream) {
     PostTweet(name,columns,point);
         console.log(name);
         console.log(columns);
-        console.log(point)
-    });*/
+        console.log(point);*/
+    });
 });
